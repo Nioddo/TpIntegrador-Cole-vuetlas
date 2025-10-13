@@ -1,15 +1,14 @@
 package ar.com.colevueltas.site.controller;
 
 import ar.com.colevueltas.site.dto.PublicacionDTO;
+import ar.com.colevueltas.site.model.Publicacion;
+import ar.com.colevueltas.site.repository.PublicacionRepository;
 import ar.com.colevueltas.site.service.PublicacionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/productos")
+@RequestMapping("/api/productos")
 
 public class PublicacionController {
 
@@ -20,6 +19,9 @@ public class PublicacionController {
         this.publicacionService = publicacionService;
     }
 
+    @Autowired
+    private PublicacionRepository repository;
+
     @GetMapping
     public String pagPrinc(){
         return "PAGIUNA PRINCIPAL PRODICTOS";
@@ -29,4 +31,25 @@ public class PublicacionController {
     public PublicacionDTO prodInd(@PathVariable("id") int id){
         return publicacionService.obtenerPostDeID(id);
     }
+
+    @PostMapping("/new")
+    public Publicacion createPublicacion(@RequestBody PublicacionDTO dto) {
+        return publicacionService.create(dto);
+    }
+
+    @PutMapping("/{id}")
+    public Publicacion replacePublicacion(@PathVariable int id, @RequestBody PublicacionDTO dto) {
+        return publicacionService.replace(id, dto);
+    }
+
+    @PatchMapping("/{id}")
+    public Publicacion updatePublicacion(@PathVariable int id, @RequestBody PublicacionDTO dto) {
+        return publicacionService.update(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePublicacion(@PathVariable int id) {
+        publicacionService.delete(id);
+    }
+
 }
