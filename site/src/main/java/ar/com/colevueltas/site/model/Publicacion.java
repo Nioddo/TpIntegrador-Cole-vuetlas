@@ -2,142 +2,79 @@ package ar.com.colevueltas.site.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
-@Table(name = "publicaciones")
+@Table(name = "publicacion")
 public class Publicacion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
+    @Column(name = "id_usuario_vendedor", nullable = false)
+    private Integer id_usuario_vendedor;
+
+    @Column(name = "titulo", nullable = false)
     private String titulo;
+
+    @Column(name = "descripcion")
     private String descripcion;
-    private LocalDate publicacion;
-    private Double precio;
 
-    @Enumerated(EnumType.STRING)
-    private Estado estado;
+    @Column(name = "precio")
+    private BigDecimal precio;
 
-    private Double descuento;
-    private int id_cat;
-    private int id_col;
-    private int id_usu;
-    private int id_anio;
+    @Column(name = "condicion")
+    private String condicion; // Nuevo, Excelente, Muy bueno, etc.
 
-    public Publicacion() {
-        this.id = 0;
-        this.titulo = "titulo";
-        this.descripcion = "descripcion";
-        this.publicacion = LocalDate.now();
-        this.precio = 0.0;
-        this.estado = Estado.BUENO;
-        this.descuento = 0.0;
-        this.id_cat = 0;
-        this.id_col = 0;
-        this.id_usu = 0;
-        this.id_anio = 0;
-    }
+    @Column(name = "fecha_publicacion")
+    private Date fecha_publicacion;
 
-    public Publicacion(int id, String titulo, String descripcion, LocalDate publicacion, Double precio, Estado estado, Double descuento, int id_cat, int id_col, int id_usu, int id_anio) {
-        this.id = id;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.publicacion = publicacion;
-        this.precio = precio;
-        this.estado = estado;
-        this.descuento = descuento;
-        this.id_cat = id_cat;
-        this.id_col = id_col;
-        this.id_usu = id_usu;
-        this.id_anio = id_anio;
-    }
+    @Column(name = "fecha_ultima_actualizacion")
+    private Date fecha_ultima_actualizacion;
 
-    public int getId() {
-        return id;
-    }
+    @Column(name = "estado")
+    private String estado; // Activo, Pausado, Vendido, etc.
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Column(name = "descuento")
+    private BigDecimal descuento;
 
-    public String getTitulo() {
-        return titulo;
-    }
+    @Column(name = "id_categoria", nullable = false)
+    private Integer id_categoria;
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
+    // getters y setters
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+    public Integer getId_usuario_vendedor() { return id_usuario_vendedor; }
+    public void setId_usuario_vendedor(Integer id_usuario_vendedor) { this.id_usuario_vendedor = id_usuario_vendedor; }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+    public String getTitulo() { return titulo; }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
 
-    public LocalDate getPublicacion() {
-        return publicacion;
-    }
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
-    public void setPublicacion(LocalDate publicacion) {
-        this.publicacion = publicacion;
-    }
+    public BigDecimal getPrecio() { return precio; }
+    public void setPrecio(BigDecimal precio) { this.precio = precio; }
 
-    public Double getPrecio() {
-        return precio;
-    }
+    public String getCondicion() { return condicion; }
+    public void setCondicion(String condicion) { this.condicion = condicion; }
 
-    public void setPrecio(Double precio) {
-        this.precio = precio;
-    }
+    public Date getFecha_publicacion() { return fecha_publicacion; }
+    public void setFecha_publicacion(Date fecha_publicacion) { this.fecha_publicacion = fecha_publicacion; }
 
-    public Estado getEstado() {
-        return estado;
-    }
+    public Date getFecha_ultima_actualizacion() { return fecha_ultima_actualizacion; }
+    public void setFecha_ultima_actualizacion(Date fecha_ultima_actualizacion) { this.fecha_ultima_actualizacion = fecha_ultima_actualizacion; }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
 
-    public Double getDescuento() {
-        return descuento;
-    }
+    public BigDecimal getDescuento() { return descuento; }
+    public void setDescuento(BigDecimal descuento) { this.descuento = descuento; }
 
-    public void setDescuento(Double descuento) {
-        this.descuento = descuento;
-    }
-
-    public int getId_cat() {
-        return id_cat;
-    }
-
-    public void setId_cat(int id_cat) {
-        this.id_cat = id_cat;
-    }
-
-    public int getId_col() {
-        return id_col;
-    }
-
-    public void setId_col(int id_col) {
-        this.id_col = id_col;
-    }
-
-    public int getId_usu() {
-        return id_usu;
-    }
-
-    public void setId_usu(int id_usu) {
-        this.id_usu = id_usu;
-    }
-
-    public int getId_anio() {
-        return id_anio;
-    }
-
-    public void setId_anio(int id_anio) {
-        this.id_anio = id_anio;
-    }
+    public Integer getId_categoria() { return id_categoria; }
+    public void setId_categoria(Integer id_categoria) { this.id_categoria = id_categoria; }
 }
+

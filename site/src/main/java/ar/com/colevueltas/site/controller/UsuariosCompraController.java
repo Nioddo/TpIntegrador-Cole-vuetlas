@@ -1,29 +1,38 @@
 package ar.com.colevueltas.site.controller;
 
-import ar.com.colevueltas.site.dto.NivelDTO;
 import ar.com.colevueltas.site.dto.PublicacionDTO;
-import ar.com.colevueltas.site.model.Publicacion;
-import ar.com.colevueltas.site.model.Usuario;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import ar.com.colevueltas.site.model.Compra;
+import ar.com.colevueltas.site.model.CompraDTO;
+import ar.com.colevueltas.site.repository.CompraRepository;
+import ar.com.colevueltas.site.service.CompraService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/usuarios/{id}/publicaciones")
+@RequestMapping("/api/usuarios/{id}/compras")
 
 public class UsuariosCompraController {
 
+    private final CompraService compraService;
+
+    @Autowired
+    public UsuariosCompraController(CompraService compraService) {
+        this.compraService = compraService;
+    }
+
+    @Autowired
+    private CompraRepository repository;
+
     @PostMapping
-    public Compra createPublicacion(){
-        return new Compra();
+    public Compra createCompra(@PathVariable int id, @RequestBody CompraDTO dto){
+        return compraService.create(id, dto);
     }
 
     @GetMapping
-    public List<PublicacionDTO> verPublicaciones(){
-        return new PublicacionDTO();
+    public List<CompraDTO> verPublicaciones(@PathVariable int id){
+        return compraService.getComprasByUsuario(id);
     }
 
 }

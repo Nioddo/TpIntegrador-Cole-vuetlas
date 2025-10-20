@@ -1,26 +1,23 @@
-package ar.com.colevueltas.site.controller;
+package ar.com.colevueltas.site.AAAporahorano;
 
 import ar.com.colevueltas.site.dto.PublicacionDTO;
-import ar.com.colevueltas.site.model.Publicacion;
-import ar.com.colevueltas.site.repository.PublicacionRepository;
-import ar.com.colevueltas.site.service.PublicacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/productos")
 
-public class PublicacionController {
+public class PublicacionNOController {
 
-    private final PublicacionService publicacionService;
+    private final PublicacionNOService publicacionService;
 
     @Autowired
-    public PublicacionController(PublicacionService publicacionService) {
+    public PublicacionNOController(PublicacionNOService publicacionService) {
         this.publicacionService = publicacionService;
     }
 
     @Autowired
-    private PublicacionRepository repository;
+    private PublicacionNORepository repository;
 
     @GetMapping
     public String pagPrinc(){
@@ -33,17 +30,17 @@ public class PublicacionController {
     }
 
     @PostMapping("/new")
-    public Publicacion createPublicacion(@RequestBody PublicacionDTO dto) {
+    public PublicacionNO createPublicacion(@RequestBody PublicacionDTO dto) {
         return publicacionService.create(dto);
     }
 
     @PutMapping("/{id}")
-    public Publicacion replacePublicacion(@PathVariable int id, @RequestBody PublicacionDTO dto) {
+    public PublicacionNO replacePublicacion(@PathVariable int id, @RequestBody PublicacionDTO dto) {
         return publicacionService.replace(id, dto);
     }
 
     @PatchMapping("/{id}")
-    public Publicacion updatePublicacion(@PathVariable int id, @RequestBody PublicacionDTO dto) {
+    public PublicacionNO updatePublicacion(@PathVariable int id, @RequestBody PublicacionDTO dto) {
         return publicacionService.update(id, dto);
     }
 

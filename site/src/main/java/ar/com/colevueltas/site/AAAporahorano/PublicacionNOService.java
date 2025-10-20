@@ -1,22 +1,20 @@
-package ar.com.colevueltas.site.service;
+package ar.com.colevueltas.site.AAAporahorano;
 
 import ar.com.colevueltas.site.dto.PublicacionDTO;
-import ar.com.colevueltas.site.model.Publicacion;
-import ar.com.colevueltas.site.repository.PublicacionRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
-public class PublicacionService {
-    private final PublicacionRepository repository;
+public class PublicacionNOService {
+    private final PublicacionNORepository repository;
 
-    public PublicacionService(PublicacionRepository repository) {
+    public PublicacionNOService(PublicacionNORepository repository) {
         this.repository = repository;
     }
 
     public PublicacionDTO obtenerPostDeID(int idpub) {
-        Publicacion pub = repository.findById(idpub).orElse(null);
+        PublicacionNO pub = repository.findById(idpub).orElse(null);
         if (pub == null) return null;
 
         // Conversión manual a DTO
@@ -36,8 +34,8 @@ public class PublicacionService {
         return dto;
     }
 
-    public Publicacion create(PublicacionDTO dto){
-        Publicacion p = new Publicacion();
+    public PublicacionNO create(PublicacionDTO dto){
+        PublicacionNO p = new PublicacionNO();
         p.setTitulo(dto.getTitulo());
         p.setDescripcion(dto.getDescripcion());
         p.setPublicacion(dto.getPublicacion());
@@ -51,8 +49,8 @@ public class PublicacionService {
         return repository.save(p);
     }
 
-    public Publicacion replace(int id, PublicacionDTO dto) {
-        Publicacion p = repository.findById(id)
+    public PublicacionNO replace(int id, PublicacionDTO dto) {
+        PublicacionNO p = repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Publicación no encontrada"));
 
         // Reemplazo completo
@@ -70,8 +68,8 @@ public class PublicacionService {
         return repository.save(p);
     }
 
-    public Publicacion update(int id, PublicacionDTO dto) {
-        Publicacion p = repository.findById(id)
+    public PublicacionNO update(int id, PublicacionDTO dto) {
+        PublicacionNO p = repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Publicación no encontrada"));
 
         // Actualización parcial: solo modifica los campos no nulos
