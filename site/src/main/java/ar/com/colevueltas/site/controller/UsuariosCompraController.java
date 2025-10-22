@@ -31,7 +31,7 @@ public class UsuariosCompraController {
     }
 
     @GetMapping
-    public List<CompraDTO> verPublicaciones(@PathVariable int id){
+    public List<CompraDTO> verCompras(@PathVariable int id){
         return compraService.getComprasByUsuario(id);
     }
 

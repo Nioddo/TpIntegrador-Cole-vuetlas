@@ -1,5 +1,6 @@
 package ar.com.colevueltas.site.service;
 
+import ar.com.colevueltas.site.dto.NivelDTO;
 import ar.com.colevueltas.site.dto.UsuarioCrearDTO;
 import ar.com.colevueltas.site.model.Usuario;
 import ar.com.colevueltas.site.repository.ChatRepository;
@@ -46,5 +47,9 @@ public class UsuarioService {
         usuario.setTotal_calificaciones_comprador(0);
 
         return repository.save(usuario);
+    }
+
+    public NivelDTO obtenerNivel(int id){
+        return new NivelDTO(id, repository.findNivelById(id));
     }
 }
