@@ -1,4 +1,4 @@
-package ar.com.colevueltas.site.AAAporahorano;
+/*package ar.com.colevueltas.site.AAAporahorano;
 
 import ar.com.colevueltas.site.dto.PublicacionDTO;
 import org.springframework.http.HttpStatus;
@@ -94,4 +94,4 @@ public class PublicacionNOService {
         repository.deleteById(id);
     }
 
-}
+}*/

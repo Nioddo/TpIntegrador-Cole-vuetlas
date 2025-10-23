@@ -1,56 +1,61 @@
 package ar.com.colevueltas.site.dto;
 
-import ar.com.colevueltas.site.model.Estado;
-
-import java.time.LocalDate;
+import ar.com.colevueltas.site.model.Condicion;
+import ar.com.colevueltas.site.model.EstadoPublicacion;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class PublicacionDTO {
+
     private int id;
+    private int id_usuario_vendedor;
     private String titulo;
     private String descripcion;
-    private LocalDate publicacion;
-    private Double precio;
-    private Estado estado;
-    private Double descuento;
-    private int id_cat;
-    private int id_col;
-    private int id_usu;
-    private int id_anio;
+    private BigDecimal precio;
+    private Condicion condicion;
+    private LocalDateTime fecha_publicacion;
+    private EstadoPublicacion estado;
+    private BigDecimal descuento;
+    private LocalDateTime descuento_fecha_inicio;
+    private LocalDateTime descuento_fecha_fin;
+    private int id_categoria;
 
-    public PublicacionDTO() {
-        this.id = 0;
-        this.titulo = "titulo";
-        this.descripcion = "descripcion";
-        this.publicacion = LocalDate.now();
-        this.precio = 0.0;
-        this.estado = Estado.BUENO;
-        this.descuento = 0.0;
-        this.id_cat = 0;
-        this.id_col = 0;
-        this.id_usu = 0;
-        this.id_anio = 0;
-    }
+    // --- Constructores ---
+    public PublicacionDTO() {}
 
-    public PublicacionDTO(int id, String titulo, String descripcion, LocalDate publicacion, Double precio, Estado estado, Double descuento, int id_cat, int id_col, int id_usu, int id_anio) {
+    public PublicacionDTO(int id, int id_usuario_vendedor, String titulo, String descripcion, BigDecimal precio,
+                          Condicion condicion, LocalDateTime fecha_publicacion, EstadoPublicacion estado,
+                          BigDecimal descuento, LocalDateTime descuento_fecha_inicio, LocalDateTime descuento_fecha_fin,
+                          int id_categoria) {
         this.id = id;
+        this.id_usuario_vendedor = id_usuario_vendedor;
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.publicacion = publicacion;
         this.precio = precio;
+        this.condicion = condicion;
+        this.fecha_publicacion = fecha_publicacion;
         this.estado = estado;
         this.descuento = descuento;
-        this.id_cat = id_cat;
-        this.id_col = id_col;
-        this.id_usu = id_usu;
-        this.id_anio = id_anio;
+        this.descuento_fecha_inicio = descuento_fecha_inicio;
+        this.descuento_fecha_fin = descuento_fecha_fin;
+        this.id_categoria = id_categoria;
     }
 
+    // --- Getters y Setters ---
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId_usuario_vendedor() {
+        return id_usuario_vendedor;
+    }
+
+    public void setId_usuario_vendedor(int id_usuario_vendedor) {
+        this.id_usuario_vendedor = id_usuario_vendedor;
     }
 
     public String getTitulo() {
@@ -69,67 +74,67 @@ public class PublicacionDTO {
         this.descripcion = descripcion;
     }
 
-    public LocalDate getPublicacion() {
-        return publicacion;
-    }
-
-    public void setPublicacion(LocalDate publicacion) {
-        this.publicacion = publicacion;
-    }
-
-    public Double getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 
-    public Estado getEstado() {
+    public Condicion getCondicion() {
+        return condicion;
+    }
+
+    public void setCondicion(Condicion condicion) {
+        this.condicion = condicion;
+    }
+
+    public LocalDateTime getFecha_publicacion() {
+        return fecha_publicacion;
+    }
+
+    public void setFecha_publicacion(LocalDateTime fecha_publicacion) {
+        this.fecha_publicacion = fecha_publicacion;
+    }
+
+    public EstadoPublicacion getEstado() {
         return estado;
     }
 
-    public void setEstado(Estado estado) {
+    public void setEstado(EstadoPublicacion estado) {
         this.estado = estado;
     }
 
-    public Double getDescuento() {
+    public BigDecimal getDescuento() {
         return descuento;
     }
 
-    public void setDescuento(Double descuento) {
+    public void setDescuento(BigDecimal descuento) {
         this.descuento = descuento;
     }
 
-    public int getId_cat() {
-        return id_cat;
+    public LocalDateTime getDescuento_fecha_inicio() {
+        return descuento_fecha_inicio;
     }
 
-    public void setId_cat(int id_cat) {
-        this.id_cat = id_cat;
+    public void setDescuento_fecha_inicio(LocalDateTime descuento_fecha_inicio) {
+        this.descuento_fecha_inicio = descuento_fecha_inicio;
     }
 
-    public int getId_col() {
-        return id_col;
+    public LocalDateTime getDescuento_fecha_fin() {
+        return descuento_fecha_fin;
     }
 
-    public void setId_col(int id_col) {
-        this.id_col = id_col;
+    public void setDescuento_fecha_fin(LocalDateTime descuento_fecha_fin) {
+        this.descuento_fecha_fin = descuento_fecha_fin;
     }
 
-    public int getId_usu() {
-        return id_usu;
+    public int getId_categoria() {
+        return id_categoria;
     }
 
-    public void setId_usu(int id_usu) {
-        this.id_usu = id_usu;
-    }
-
-    public int getId_anio() {
-        return id_anio;
-    }
-
-    public void setId_anio(int id_anio) {
-        this.id_anio = id_anio;
+    public void setId_categoria(int id_categoria) {
+        this.id_categoria = id_categoria;
     }
 }

@@ -26,6 +26,7 @@ public class Usuario {
     private LocalDate fecha_nacimiento;
     private String telefono;
 
+    private int xp;
     private int nivel;
     @Column(columnDefinition = "tinyint(1)")
     private boolean es_verificado;
@@ -33,11 +34,12 @@ public class Usuario {
     private int total_calificaciones_vendedor;
     private Double calificacion_comprador_promedio;
     private int total_calificaciones_comprador;
+    private LocalDateTime fecha_eliminacion;
 
     public Usuario() {
     }
 
-    public Usuario(int id, String nombre, String apellido, String mail, String contraseña, int dni, LocalDateTime fecha_registro, Genero genero, LocalDate fecha_nacimiento, String telefono, int nivel, boolean es_verificado, Double calificacion_vendedor_promedio, int total_calificaciones_vendedor, Double calificacion_comprador_promedio, int total_calificaciones_comprador) {
+    public Usuario(int id, String nombre, String apellido, String mail, String contraseña, int dni, LocalDateTime fecha_registro, Genero genero, LocalDate fecha_nacimiento, String telefono, int xp, int nivel, boolean es_verificado, Double calificacion_vendedor_promedio, int total_calificaciones_vendedor, Double calificacion_comprador_promedio, int total_calificaciones_comprador, LocalDateTime fecha_eliminacion) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -182,5 +184,21 @@ public class Usuario {
 
     public void setTotal_calificaciones_comprador(int total_calificaciones_comprador) {
         this.total_calificaciones_comprador = total_calificaciones_comprador;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
+    }
+
+    public LocalDateTime getFecha_eliminacion() {
+        return fecha_eliminacion;
+    }
+
+    public void setFecha_eliminacion(LocalDateTime fecha_eliminacion) {
+        this.fecha_eliminacion = fecha_eliminacion;
     }
 }

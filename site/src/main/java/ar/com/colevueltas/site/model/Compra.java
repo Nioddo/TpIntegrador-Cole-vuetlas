@@ -3,7 +3,7 @@ package ar.com.colevueltas.site.model;
 import jakarta.persistence.*;
 import org.springframework.cglib.core.Local;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ventas")
@@ -18,7 +18,7 @@ public class Compra {
     private int id_vendedor;
     private Double precio_final;
     private String punto_entrega;
-    private LocalDate fecha_venta;
+    private LocalDateTime fecha_venta;
 
     public Compra() {
         this.id = 0;
@@ -28,10 +28,10 @@ public class Compra {
         this.id_vendedor = 0;
         this.precio_final = 0.0;
         this.punto_entrega = "punto_entrega";
-        this.fecha_venta = LocalDate.now();
+        this.fecha_venta = LocalDateTime.now();
     }
 
-    public Compra(int id, int id_publicacion, int id_chat_origen, int id_comprador, int id_vendedor, Double precio_final, String punto_entrega, LocalDate fecha_venta) {
+    public Compra(int id, int id_publicacion, int id_chat_origen, int id_comprador, int id_vendedor, Double precio_final, String punto_entrega, LocalDateTime fecha_venta) {
         this.id = id;
         this.id_publicacion = id_publicacion;
         this.id_chat_origen = id_chat_origen;
@@ -98,11 +98,11 @@ public class Compra {
         this.punto_entrega = punto_entrega;
     }
 
-    public LocalDate getFecha_venta() {
+    public LocalDateTime getFecha_venta() {
         return fecha_venta;
     }
 
-    public void setFecha_venta(LocalDate fecha_venta) {
+    public void setFecha_venta(LocalDateTime fecha_venta) {
         this.fecha_venta = fecha_venta;
     }
 }

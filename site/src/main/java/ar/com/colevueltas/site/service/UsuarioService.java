@@ -1,12 +1,10 @@
 package ar.com.colevueltas.site.service;
 
 import ar.com.colevueltas.site.dto.NivelDTO;
+import ar.com.colevueltas.site.dto.ReputacionVendedorDTO;
 import ar.com.colevueltas.site.dto.UsuarioCrearDTO;
 import ar.com.colevueltas.site.model.Usuario;
-import ar.com.colevueltas.site.repository.ChatRepository;
-import ar.com.colevueltas.site.repository.CompraRepository;
-import ar.com.colevueltas.site.repository.PublicacionRepository;
-import ar.com.colevueltas.site.repository.UsuarioRepository;
+import ar.com.colevueltas.site.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 /*import org.springframework.security.crypto.password.PasswordEncoder;*/
 import org.springframework.stereotype.Service;
@@ -19,9 +17,11 @@ public class UsuarioService {
     /*private PasswordEncoder passwordEncoder;*/
 
     private final UsuarioRepository repository;
+    private final NivelRepository nivelRepository;
 
-    public UsuarioService(UsuarioRepository repository) {
+    public UsuarioService(UsuarioRepository repository, NivelRepository nivelRepository) {
         this.repository = repository;
+        this.nivelRepository = nivelRepository;
     }
 
     public Usuario create(UsuarioCrearDTO dto){
@@ -45,11 +45,19 @@ public class UsuarioService {
         usuario.setTotal_calificaciones_vendedor(0);
         usuario.setCalificacion_comprador_promedio(0.0);
         usuario.setTotal_calificaciones_comprador(0);
+        usuario.setXp(0);
+        usuario.setFecha_eliminacion(null);
 
         return repository.save(usuario);
     }
 
     public NivelDTO obtenerNivel(int id){
-        return new NivelDTO(id, repository.findNivelById(id));
+        Usuario user = repository.findById(id);
+        return new NivelDTO(id, user.getXp(), user.getNivel(), nivelRepository.findByNivel(user.getNivel()).getNombreNivel());
+    }
+
+    public ReputacionVendedorDTO obtenerReputacionVendedor(int id){
+        Usuario user = repository.findById(id);
+        return new ReputacionVendedorDTO(id, user.getCalificacion_vendedor_promedio(), user.getTotal_calificaciones_vendedor());
     }
 }

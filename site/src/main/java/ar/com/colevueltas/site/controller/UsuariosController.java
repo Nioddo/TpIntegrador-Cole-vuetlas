@@ -1,10 +1,9 @@
 package ar.com.colevueltas.site.controller;
 
 import ar.com.colevueltas.site.dto.NivelDTO;
-import ar.com.colevueltas.site.dto.ReputacionDTO;
+import ar.com.colevueltas.site.dto.ReputacionVendedorDTO;
 import ar.com.colevueltas.site.dto.UsuarioCrearDTO;
 import ar.com.colevueltas.site.model.Usuario;
-import ar.com.colevueltas.site.service.CompraService;
 import ar.com.colevueltas.site.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +28,11 @@ public class UsuariosController {
 
     @GetMapping("/{id}/nivel")
     public NivelDTO buscarNivel(@PathVariable("id") int id){
-        return new NivelDTO();
+        return usuarioService.obtenerNivel(id);
     }
 
     @GetMapping("/{id}/reputacion")
-    public ReputacionDTO buscarReputacion(@PathVariable("id") int id){
-        return new ReputacionDTO();
+    public ReputacionVendedorDTO buscarReputacion(@PathVariable("id") int id){
+        return usuarioService.obtenerReputacionVendedor(id);
     }
-
 }

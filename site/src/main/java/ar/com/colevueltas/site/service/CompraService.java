@@ -3,7 +3,8 @@ package ar.com.colevueltas.site.service;
 import ar.com.colevueltas.site.dto.PublicacionDTO;
 import ar.com.colevueltas.site.model.Chat;
 import ar.com.colevueltas.site.model.Compra;
-import ar.com.colevueltas.site.model.CompraDTO;
+import ar.com.colevueltas.site.dto.CompraDTO;
+import ar.com.colevueltas.site.model.EstadoPublicacion;
 import ar.com.colevueltas.site.model.Publicacion;
 import ar.com.colevueltas.site.repository.CompraRepository;
 import ar.com.colevueltas.site.repository.PublicacionRepository;
@@ -35,7 +36,7 @@ public class CompraService {
         Publicacion publicacion = publicacionRepository.findById(chat.getId_publicacion())
                 .orElseThrow(() -> new RuntimeException("La publicación no existe"));
 
-        if (!"Activo".equals(publicacion.getEstado())) {
+        if (!EstadoPublicacion.Activo.equals(publicacion.getEstado())) {
             throw new RuntimeException("La publicación no está disponible");
         }
 
@@ -50,7 +51,7 @@ public class CompraService {
 
         Compra savedCompra = repository.save(compra);
 
-        publicacion.setEstado("Vendido");
+        publicacion.setEstado(EstadoPublicacion.Vendido);
         publicacionRepository.save(publicacion);
 
         return savedCompra;

@@ -1,6 +1,5 @@
-package ar.com.colevueltas.site.AAAporahorano;
+/*package ar.com.colevueltas.site.AAAporahorano;
 
-import ar.com.colevueltas.site.model.Estado;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -142,3 +141,4 @@ public class PublicacionNO {
         this.id_anio = id_anio;
     }
 }
+*/

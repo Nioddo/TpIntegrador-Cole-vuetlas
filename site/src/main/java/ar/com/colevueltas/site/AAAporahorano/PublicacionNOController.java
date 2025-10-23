@@ -1,4 +1,4 @@
-package ar.com.colevueltas.site.AAAporahorano;
+/*package ar.com.colevueltas.site.AAAporahorano;
 
 import ar.com.colevueltas.site.dto.PublicacionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,4 +49,4 @@ public class PublicacionNOController {
         publicacionService.delete(id);
     }
 
-}
+}*/

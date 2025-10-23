@@ -2,7 +2,7 @@ package ar.com.colevueltas.site.controller;
 
 import ar.com.colevueltas.site.dto.PublicacionDTO;
 import ar.com.colevueltas.site.model.Compra;
-import ar.com.colevueltas.site.model.CompraDTO;
+import ar.com.colevueltas.site.dto.CompraDTO;
 import ar.com.colevueltas.site.repository.CompraRepository;
 import ar.com.colevueltas.site.service.CompraService;
 import org.springframework.beans.factory.annotation.Autowired;

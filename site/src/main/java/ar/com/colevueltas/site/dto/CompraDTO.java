@@ -1,26 +1,27 @@
-package ar.com.colevueltas.site.model;
+package ar.com.colevueltas.site.dto;
 
 import jakarta.persistence.*;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CompraDTO {
     private int id;
     private int id_chat_origen;
     private Double precio_final;
     private String punto_entrega;
-    private LocalDate fecha_venta;
+    private LocalDateTime fecha_venta;
 
     public CompraDTO() {
         this.id = 0;
         this.id_chat_origen = 0;
         this.precio_final = 0.0;
         this.punto_entrega = "punto_entrega";
-        this.fecha_venta = LocalDate.now();
+        this.fecha_venta = LocalDateTime.now();
     }
 
-    public CompraDTO(int id, int id_chat_origen, Double precio_final, String punto_entrega, LocalDate fecha_venta) {
+    public CompraDTO(int id, int id_chat_origen, Double precio_final, String punto_entrega, LocalDateTime fecha_venta) {
         this.id = id;
         this.id_chat_origen = id_chat_origen;
         this.precio_final = precio_final;
@@ -60,11 +61,11 @@ public class CompraDTO {
         this.punto_entrega = punto_entrega;
     }
 
-    public LocalDate getFecha_venta() {
+    public LocalDateTime getFecha_venta() {
         return fecha_venta;
     }
 
-    public void setFecha_venta(LocalDate fecha_venta) {
+    public void setFecha_venta(LocalDateTime fecha_venta) {
         this.fecha_venta = fecha_venta;
     }
 }
