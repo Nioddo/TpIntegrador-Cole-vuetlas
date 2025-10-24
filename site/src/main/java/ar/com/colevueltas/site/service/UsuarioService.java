@@ -3,6 +3,7 @@ package ar.com.colevueltas.site.service;
 import ar.com.colevueltas.site.dto.NivelDTO;
 import ar.com.colevueltas.site.dto.ReputacionVendedorDTO;
 import ar.com.colevueltas.site.dto.UsuarioCrearDTO;
+import ar.com.colevueltas.site.globals.BadRequestException;
 import ar.com.colevueltas.site.model.Usuario;
 import ar.com.colevueltas.site.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,13 @@ public class UsuarioService {
 
     public Usuario create(UsuarioCrearDTO dto){
         Usuario usuario = new Usuario();
+
+        if(repository.existsByMail(dto.getMail())){
+            throw new BadRequestException("El mail ya está en uso");
+        }
+        if(repository.existsByDni(dto.getDni())){
+            throw new BadRequestException("El dni ya está en uso");
+        }
 
         usuario.setNombre(dto.getNombre());
         usuario.setApellido(dto.getApellido());

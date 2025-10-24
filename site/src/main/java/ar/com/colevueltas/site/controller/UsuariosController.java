@@ -5,7 +5,9 @@ import ar.com.colevueltas.site.dto.ReputacionVendedorDTO;
 import ar.com.colevueltas.site.dto.UsuarioCrearDTO;
 import ar.com.colevueltas.site.model.Usuario;
 import ar.com.colevueltas.site.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,7 +24,7 @@ public class UsuariosController {
 
 
     @PostMapping
-    public Usuario createUsuario(@RequestBody UsuarioCrearDTO dto){
+    public Usuario createUsuario(@Valid @RequestBody UsuarioCrearDTO dto){
         return usuarioService.create(dto);
     }
 

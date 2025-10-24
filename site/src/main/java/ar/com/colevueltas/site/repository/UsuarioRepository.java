@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     Usuario findById(int id);
     Integer findNivelById(int id);
+    boolean existsByMail(String mail);
+    boolean existsByDni(int dni);
 }

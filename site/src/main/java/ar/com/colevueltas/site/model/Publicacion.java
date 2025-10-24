@@ -12,7 +12,8 @@ public class Publicacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int id_usuario_vendedor;
+    @Column(name = "id_usuario_vendedor")
+    private int idUsuarioVendedor;
 
     private String titulo;
 
@@ -23,9 +24,11 @@ public class Publicacion {
     @Enumerated(EnumType.STRING)
     private Condicion condicion;
 
-    private LocalDateTime fecha_publicacion;
+    @Column(name = "fecha_publicacion")
+    private LocalDateTime fechaPublicacion;
 
-    private LocalDateTime fecha_ultima_actualizacion;
+    @Column(name = "fecha_ultima_actualizacion")
+    private LocalDateTime fechaUltimaActualizacion;
 
     @Enumerated(EnumType.STRING)
     private EstadoPublicacion estado;
@@ -33,13 +36,17 @@ public class Publicacion {
     @Column(precision = 5, scale = 2)
     private BigDecimal descuento;
 
-    private LocalDateTime descuento_fecha_inicio;
+    @Column(name = "descuento_fecha_inicio")
+    private LocalDateTime descuentoFechaInicio;
 
-    private LocalDateTime descuento_fecha_fin;
+    @Column(name = "descuento_fecha_fin")
+    private LocalDateTime descuentoFechaFin;
 
-    private int id_categoria;
+    @Column(name = "id_categoria")
+    private int idCategoria;
 
-    private LocalDateTime fecha_eliminacion;
+    @Column(name = "fecha_eliminacion")
+    private LocalDateTime fechaEliminacion;
 
     // --- Constructores ---
     public Publicacion() {
@@ -47,23 +54,23 @@ public class Publicacion {
         this.descuento = BigDecimal.ZERO;
     }
 
-    public Publicacion(int id_usuario_vendedor, String titulo, String descripcion, BigDecimal precio,
-                       Condicion condicion, LocalDateTime fecha_publicacion, LocalDateTime fecha_ultima_actualizacion,
-                       EstadoPublicacion estado, BigDecimal descuento, LocalDateTime descuento_fecha_inicio,
-                       LocalDateTime descuento_fecha_fin, int id_categoria, LocalDateTime fecha_eliminacion) {
-        this.id_usuario_vendedor = id_usuario_vendedor;
+    public Publicacion(int idUsuarioVendedor, String titulo, String descripcion, BigDecimal precio,
+                       Condicion condicion, LocalDateTime fechaPublicacion, LocalDateTime fechaUltimaActualizacion,
+                       EstadoPublicacion estado, BigDecimal descuento, LocalDateTime descuentoFechaInicio,
+                       LocalDateTime descuentoFechaFin, int idCategoria, LocalDateTime fechaEliminacion) {
+        this.idUsuarioVendedor = idUsuarioVendedor;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.precio = precio;
         this.condicion = condicion;
-        this.fecha_publicacion = fecha_publicacion;
-        this.fecha_ultima_actualizacion = fecha_ultima_actualizacion;
+        this.fechaPublicacion = fechaPublicacion;
+        this.fechaUltimaActualizacion = fechaUltimaActualizacion;
         this.estado = estado;
         this.descuento = descuento;
-        this.descuento_fecha_inicio = descuento_fecha_inicio;
-        this.descuento_fecha_fin = descuento_fecha_fin;
-        this.id_categoria = id_categoria;
-        this.fecha_eliminacion = fecha_eliminacion;
+        this.descuentoFechaInicio = descuentoFechaInicio;
+        this.descuentoFechaFin = descuentoFechaFin;
+        this.idCategoria = idCategoria;
+        this.fechaEliminacion = fechaEliminacion;
     }
 
     // --- Getters y Setters ---
@@ -75,12 +82,12 @@ public class Publicacion {
         this.id = id;
     }
 
-    public int getId_usuario_vendedor() {
-        return id_usuario_vendedor;
+    public int getIdUsuarioVendedor() {
+        return idUsuarioVendedor;
     }
 
-    public void setId_usuario_vendedor(int id_usuario_vendedor) {
-        this.id_usuario_vendedor = id_usuario_vendedor;
+    public void setIdUsuarioVendedor(int idUsuarioVendedor) {
+        this.idUsuarioVendedor = idUsuarioVendedor;
     }
 
     public String getTitulo() {
@@ -115,20 +122,20 @@ public class Publicacion {
         this.condicion = condicion;
     }
 
-    public LocalDateTime getFecha_publicacion() {
-        return fecha_publicacion;
+    public LocalDateTime getFechaPublicacion() {
+        return fechaPublicacion;
     }
 
-    public void setFecha_publicacion(LocalDateTime fecha_publicacion) {
-        this.fecha_publicacion = fecha_publicacion;
+    public void setFechaPublicacion(LocalDateTime fechaPublicacion) {
+        this.fechaPublicacion = fechaPublicacion;
     }
 
-    public LocalDateTime getFecha_ultima_actualizacion() {
-        return fecha_ultima_actualizacion;
+    public LocalDateTime getFechaUltimaActualizacion() {
+        return fechaUltimaActualizacion;
     }
 
-    public void setFecha_ultima_actualizacion(LocalDateTime fecha_ultima_actualizacion) {
-        this.fecha_ultima_actualizacion = fecha_ultima_actualizacion;
+    public void setFechaUltimaActualizacion(LocalDateTime fechaUltimaActualizacion) {
+        this.fechaUltimaActualizacion = fechaUltimaActualizacion;
     }
 
     public EstadoPublicacion getEstado() {
@@ -147,35 +154,35 @@ public class Publicacion {
         this.descuento = descuento;
     }
 
-    public LocalDateTime getDescuento_fecha_inicio() {
-        return descuento_fecha_inicio;
+    public LocalDateTime getDescuentoFechaInicio() {
+        return descuentoFechaInicio;
     }
 
-    public void setDescuento_fecha_inicio(LocalDateTime descuento_fecha_inicio) {
-        this.descuento_fecha_inicio = descuento_fecha_inicio;
+    public void setDescuentoFechaInicio(LocalDateTime descuentoFechaInicio) {
+        this.descuentoFechaInicio = descuentoFechaInicio;
     }
 
-    public LocalDateTime getDescuento_fecha_fin() {
-        return descuento_fecha_fin;
+    public LocalDateTime getDescuentoFechaFin() {
+        return descuentoFechaFin;
     }
 
-    public void setDescuento_fecha_fin(LocalDateTime descuento_fecha_fin) {
-        this.descuento_fecha_fin = descuento_fecha_fin;
+    public void setDescuentoFechaFin(LocalDateTime descuentoFechaFin) {
+        this.descuentoFechaFin = descuentoFechaFin;
     }
 
-    public int getId_categoria() {
-        return id_categoria;
+    public int getIdCategoria() {
+        return idCategoria;
     }
 
-    public void setId_categoria(int id_categoria) {
-        this.id_categoria = id_categoria;
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
-    public LocalDateTime getFecha_eliminacion() {
-        return fecha_eliminacion;
+    public LocalDateTime getFechaEliminacion() {
+        return fechaEliminacion;
     }
 
-    public void setFecha_eliminacion(LocalDateTime fecha_eliminacion) {
-        this.fecha_eliminacion = fecha_eliminacion;
+    public void setFechaEliminacion(LocalDateTime fechaEliminacion) {
+        this.fechaEliminacion = fechaEliminacion;
     }
 }

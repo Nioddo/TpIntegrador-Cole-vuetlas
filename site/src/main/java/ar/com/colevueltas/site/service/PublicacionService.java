@@ -23,7 +23,7 @@ public class PublicacionService {
     }
 
     public List<PublicacionDTO> getPublicacionesByUsuario(int idVendedor) {
-        List<Publicacion> publicaciones = repository.findById_usuario_vendedor(idVendedor);
+        List<Publicacion> publicaciones = repository.findByIdUsuarioVendedor(idVendedor);
 
         return publicaciones.stream().map(pub -> {
             PublicacionDTO dto = new PublicacionDTO();
@@ -33,8 +33,8 @@ public class PublicacionService {
             dto.setPrecio(pub.getPrecio());
             dto.setCondicion(pub.getCondicion());
             dto.setEstado(pub.getEstado());
-            dto.setId_categoria(pub.getId_categoria());
-            dto.setFecha_publicacion(pub.getFecha_publicacion());
+            dto.setId_categoria(pub.getIdCategoria());
+            dto.setFecha_publicacion(pub.getFechaPublicacion());
             return dto;
         }).toList();
     }
@@ -42,19 +42,19 @@ public class PublicacionService {
     public Publicacion create(int id_usuario_vendedor, PublicacionCrearDTO dto) {
         Publicacion publicacion = new Publicacion();
 
-        publicacion.setId_usuario_vendedor(id_usuario_vendedor);
+        publicacion.setIdUsuarioVendedor(id_usuario_vendedor);
         publicacion.setTitulo(dto.getTitulo());
         publicacion.setDescripcion(dto.getDescripcion());
         publicacion.setPrecio(dto.getPrecio());
         publicacion.setCondicion(dto.getCondicion());
-        publicacion.setId_categoria(dto.getIdCategoria());
+        publicacion.setIdCategoria(dto.getIdCategoria());
         publicacion.setEstado(EstadoPublicacion.Activo);
-        publicacion.setFecha_publicacion(LocalDateTime.now());
-        publicacion.setFecha_ultima_actualizacion(LocalDateTime.now());
+        publicacion.setFechaPublicacion(LocalDateTime.now());
+        publicacion.setFechaUltimaActualizacion(LocalDateTime.now());
         publicacion.setDescuento(BigDecimal.ZERO);
-        publicacion.setDescuento_fecha_inicio(null);
-        publicacion.setDescuento_fecha_fin(null);
-        publicacion.setFecha_eliminacion(null);
+        publicacion.setDescuentoFechaInicio(null);
+        publicacion.setDescuentoFechaFin(null);
+        publicacion.setFechaEliminacion(null);
 
         return repository.save(publicacion);
     }

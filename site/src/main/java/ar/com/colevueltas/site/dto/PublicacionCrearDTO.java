@@ -1,15 +1,30 @@
 package ar.com.colevueltas.site.dto;
 
 import ar.com.colevueltas.site.model.Condicion;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 
 public class PublicacionCrearDTO {
 
+    @NotNull(message = "Error en idUsuarioVendedor")
     private Integer idUsuarioVendedor;
+
+    @NotBlank(message = "El titulo es obligatorio")
     private String titulo;
+
     private String descripcion;
+
+    @NotNull(message = "El precio es obligatorio")
+    @Min(value = 0, message = "El precio no puede ser menor a cero")
     private BigDecimal precio;
+
+    @NotNull(message = "Elegir una condición")
     private Condicion condicion;
+
+    @NotNull(message = "Elegir una categoría")
     private Integer idCategoria;
 
     public PublicacionCrearDTO() {

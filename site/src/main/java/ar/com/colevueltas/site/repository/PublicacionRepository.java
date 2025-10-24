@@ -11,7 +11,7 @@ public interface PublicacionRepository extends JpaRepository<Publicacion, Intege
 
     List<Publicacion> findByEstado(String estado);
 
-    List<Publicacion> findById_usuario_vendedor(int id_usuario_vendedor);
+    List<Publicacion> findByIdUsuarioVendedor(int idUsuarioVendedor);
 
-    List<Publicacion> findById_categoria(int id_categoria);
+    List<Publicacion> findByIdCategoria(int idCategoria);
 }
