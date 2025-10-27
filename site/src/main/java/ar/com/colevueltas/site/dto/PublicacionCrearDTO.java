@@ -4,13 +4,12 @@ import ar.com.colevueltas.site.model.Condicion;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class PublicacionCrearDTO {
-
-    @NotNull(message = "Error en idUsuarioVendedor")
-    private Integer idUsuarioVendedor;
 
     @NotBlank(message = "El titulo es obligatorio")
     private String titulo;
@@ -27,24 +26,20 @@ public class PublicacionCrearDTO {
     @NotNull(message = "Elegir una categoría")
     private Integer idCategoria;
 
+
+    @NotNull(message = "Debe agregar al menos una imagen")
+    private List<MultipartFile> imagenes;
+
     public PublicacionCrearDTO() {
     }
 
-    public PublicacionCrearDTO(Integer idUsuarioVendedor, String titulo, String descripcion, BigDecimal precio, Condicion condicion, Integer idCategoria) {
-        this.idUsuarioVendedor = idUsuarioVendedor;
+    public PublicacionCrearDTO(String titulo, String descripcion, BigDecimal precio, Condicion condicion, Integer idCategoria, List<MultipartFile> imagenes) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.precio = precio;
         this.condicion = condicion;
         this.idCategoria = idCategoria;
-    }
-
-    public Integer getIdUsuarioVendedor() {
-        return idUsuarioVendedor;
-    }
-
-    public void setIdUsuarioVendedor(Integer idUsuarioVendedor) {
-        this.idUsuarioVendedor = idUsuarioVendedor;
+        this.imagenes = imagenes;
     }
 
     public String getTitulo() {
@@ -85,5 +80,13 @@ public class PublicacionCrearDTO {
 
     public void setIdCategoria(Integer idCategoria) {
         this.idCategoria = idCategoria;
+    }
+
+    public List<MultipartFile> getImagenes() {
+        return imagenes;
+    }
+
+    public void setImagenes(List<MultipartFile> imagenes) {
+        this.imagenes = imagenes;
     }
 }

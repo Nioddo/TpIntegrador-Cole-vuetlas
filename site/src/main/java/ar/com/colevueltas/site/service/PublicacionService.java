@@ -4,22 +4,39 @@ package ar.com.colevueltas.site.service;
 import ar.com.colevueltas.site.dto.CompraDTO;
 import ar.com.colevueltas.site.dto.PublicacionCrearDTO;
 import ar.com.colevueltas.site.dto.PublicacionDTO;
+import ar.com.colevueltas.site.globals.BadRequestException;
 import ar.com.colevueltas.site.model.Compra;
 import ar.com.colevueltas.site.model.EstadoPublicacion;
+import ar.com.colevueltas.site.model.ImagenPublicacion;
 import ar.com.colevueltas.site.model.Publicacion;
+import ar.com.colevueltas.site.repository.ImagenPublicacionRepository;
 import ar.com.colevueltas.site.repository.PublicacionRepository;
+import ar.com.colevueltas.site.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PublicacionService {
     private final PublicacionRepository repository;
+    private final ImagenPublicacionRepository imagenRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final Cloudinary cloudinary;
 
-    public PublicacionService(PublicacionRepository repository) {
+    public PublicacionService(PublicacionRepository repository,
+                              ImagenPublicacionRepository imagenRepository,
+                              Cloudinary cloudinary, UsuarioRepository usuarioRepository) {
         this.repository = repository;
+        this.imagenRepository = imagenRepository;
+        this.cloudinary = cloudinary;
+        this.usuarioRepository = usuarioRepository;
     }
 
     public List<PublicacionDTO> getPublicacionesByUsuario(int idVendedor) {
@@ -39,9 +56,14 @@ public class PublicacionService {
         }).toList();
     }
 
-    public Publicacion create(int id_usuario_vendedor, PublicacionCrearDTO dto) {
+    public Publicacion create(int id_usuario_vendedor, PublicacionCrearDTO dto) throws Exception {
         Publicacion publicacion = new Publicacion();
-
+        if (dto.getPrecio().compareTo(BigDecimal.ZERO) < 0) {
+            throw new BadRequestException("El precio no puede ser menor a cero");
+        }
+        if (!usuarioRepository.existsById(id_usuario_vendedor)) {
+            throw new BadRequestException("El usuario no existe");
+        }
         publicacion.setIdUsuarioVendedor(id_usuario_vendedor);
         publicacion.setTitulo(dto.getTitulo());
         publicacion.setDescripcion(dto.getDescripcion());
@@ -55,8 +77,27 @@ public class PublicacionService {
         publicacion.setDescuentoFechaInicio(null);
         publicacion.setDescuentoFechaFin(null);
         publicacion.setFechaEliminacion(null);
+        publicacion = repository.save(publicacion);
 
-        return repository.save(publicacion);
+        List<MultipartFile> imagenes = dto.getImagenes();
+        System.out.println("Cantidad de imágenes recibidas: " + (imagenes != null ? imagenes.size() : 0));
+
+        if (imagenes != null && !imagenes.isEmpty()) {
+            for (MultipartFile file : imagenes) {
+                if (!file.isEmpty()) {
+                    Map uploadResult = cloudinary.uploader().upload(file.getBytes(),
+                            ObjectUtils.asMap(
+                                    "folder", "publicaciones/" + publicacion.getId()
+                            ));
+                    String url = (String) uploadResult.get("secure_url");
+                    ImagenPublicacion imagenPublicacion = new ImagenPublicacion();
+                    imagenPublicacion.setPublicacion(publicacion);
+                    imagenPublicacion.setUrlImagen(url);
+                    imagenRepository.save(imagenPublicacion);
+                }
+            }
+        }
+        return publicacion;
     }
 
 }

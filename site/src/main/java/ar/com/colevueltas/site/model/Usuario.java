@@ -16,7 +16,10 @@ public class Usuario {
     private String nombre;
     private String apellido;
     private String mail;
-    private String contraseña;
+
+    @Column(name = "contraseña")
+    private String contrasenia;
+
     private int dni;
     private LocalDateTime fecha_registro;
 
@@ -39,12 +42,12 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(int id, String nombre, String apellido, String mail, String contraseña, int dni, LocalDateTime fecha_registro, Genero genero, LocalDate fecha_nacimiento, String telefono, int xp, int nivel, boolean es_verificado, Double calificacion_vendedor_promedio, int total_calificaciones_vendedor, Double calificacion_comprador_promedio, int total_calificaciones_comprador, LocalDateTime fecha_eliminacion) {
+    public Usuario(int id, String nombre, String apellido, String mail, String contrasenia, int dni, LocalDateTime fecha_registro, Genero genero, LocalDate fecha_nacimiento, String telefono, int xp, int nivel, boolean es_verificado, Double calificacion_vendedor_promedio, int total_calificaciones_vendedor, Double calificacion_comprador_promedio, int total_calificaciones_comprador, LocalDateTime fecha_eliminacion) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.mail = mail;
-        this.contraseña = contraseña;
+        this.contrasenia = contrasenia;
         this.dni = dni;
         this.fecha_registro = fecha_registro;
         this.genero = genero;
@@ -90,12 +93,12 @@ public class Usuario {
         this.mail = mail;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasenia() {
+        return contrasenia;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
 
     public int getDni() {

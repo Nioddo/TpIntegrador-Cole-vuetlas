@@ -29,7 +29,7 @@ public class UsuariosPublicacionController {
     private CompraRepository repository;
 
     @PostMapping
-    public Publicacion createCompra(@PathVariable int id, @RequestBody PublicacionCrearDTO dto){
+    public Publicacion createCompra(@PathVariable int id, @ModelAttribute PublicacionCrearDTO dto) throws Exception {
         return service.create(id, dto);
     }
 

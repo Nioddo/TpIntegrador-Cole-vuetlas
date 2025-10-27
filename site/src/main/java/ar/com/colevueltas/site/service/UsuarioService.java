@@ -38,7 +38,7 @@ public class UsuarioService {
         usuario.setNombre(dto.getNombre());
         usuario.setApellido(dto.getApellido());
         usuario.setMail(dto.getMail());
-        usuario.setContraseña(dto.getContraseña());
+        usuario.setContrasenia(dto.getContrasenia());
         usuario.setDni(dto.getDni());
 
         usuario.setFecha_registro(LocalDateTime.now());

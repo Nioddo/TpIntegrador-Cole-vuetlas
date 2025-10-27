@@ -25,6 +25,7 @@ public class UsuariosController {
 
     @PostMapping
     public Usuario createUsuario(@Valid @RequestBody UsuarioCrearDTO dto){
+        System.out.println(dto);
         return usuarioService.create(dto);
     }
 

@@ -11,4 +11,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     Integer findNivelById(int id);
     boolean existsByMail(String mail);
     boolean existsByDni(int dni);
+
+
 }
