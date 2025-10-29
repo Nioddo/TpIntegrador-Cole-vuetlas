@@ -9,6 +9,7 @@ import ar.com.colevueltas.site.model.Compra;
 import ar.com.colevueltas.site.model.EstadoPublicacion;
 import ar.com.colevueltas.site.model.ImagenPublicacion;
 import ar.com.colevueltas.site.model.Publicacion;
+import ar.com.colevueltas.site.repository.CategoriaRepository;
 import ar.com.colevueltas.site.repository.ImagenPublicacionRepository;
 import ar.com.colevueltas.site.repository.PublicacionRepository;
 import ar.com.colevueltas.site.repository.UsuarioRepository;
@@ -28,18 +29,26 @@ public class PublicacionService {
     private final PublicacionRepository repository;
     private final ImagenPublicacionRepository imagenRepository;
     private final UsuarioRepository usuarioRepository;
+    private final CategoriaRepository categoriaRepository;
     private final Cloudinary cloudinary;
 
     public PublicacionService(PublicacionRepository repository,
                               ImagenPublicacionRepository imagenRepository,
-                              Cloudinary cloudinary, UsuarioRepository usuarioRepository) {
+                              Cloudinary cloudinary,
+                              UsuarioRepository usuarioRepository,
+                              CategoriaRepository categoriaRepository) {
         this.repository = repository;
         this.imagenRepository = imagenRepository;
         this.cloudinary = cloudinary;
         this.usuarioRepository = usuarioRepository;
+        this.categoriaRepository = categoriaRepository;
     }
 
     public List<PublicacionDTO> getPublicacionesByUsuario(int idVendedor) {
+        if (!usuarioRepository.existsById(idVendedor)) {
+            throw new RuntimeException("El usuario no existe");
+        }
+
         List<Publicacion> publicaciones = repository.findByIdUsuarioVendedor(idVendedor);
 
         return publicaciones.stream().map(pub -> {
@@ -64,6 +73,9 @@ public class PublicacionService {
         if (!usuarioRepository.existsById(id_usuario_vendedor)) {
             throw new BadRequestException("El usuario no existe");
         }
+        if (!categoriaRepository.existsById(dto.getIdCategoria())) {
+            throw new BadRequestException("La categoria no existe");
+        }
         publicacion.setIdUsuarioVendedor(id_usuario_vendedor);
         publicacion.setTitulo(dto.getTitulo());
         publicacion.setDescripcion(dto.getDescripcion());
@@ -80,7 +92,7 @@ public class PublicacionService {
         publicacion = repository.save(publicacion);
 
         List<MultipartFile> imagenes = dto.getImagenes();
-        System.out.println("Cantidad de imágenes recibidas: " + (imagenes != null ? imagenes.size() : 0));
+        System.out.println("Cantidad de imágenes recibidas: " + (imagenes != null ? imagenes.size() : "null"));
 
         if (imagenes != null && !imagenes.isEmpty()) {
             for (MultipartFile file : imagenes) {

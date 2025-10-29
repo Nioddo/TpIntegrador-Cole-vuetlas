@@ -8,6 +8,7 @@ import ar.com.colevueltas.site.model.EstadoPublicacion;
 import ar.com.colevueltas.site.model.Publicacion;
 import ar.com.colevueltas.site.repository.CompraRepository;
 import ar.com.colevueltas.site.repository.PublicacionRepository;
+import ar.com.colevueltas.site.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 import ar.com.colevueltas.site.repository.ChatRepository;
 
@@ -18,11 +19,13 @@ public class CompraService {
     private final CompraRepository repository;
     private final ChatRepository chatRepository;
     private final PublicacionRepository publicacionRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    public CompraService(CompraRepository repository, ChatRepository chatRepository, PublicacionRepository publicacionRepository) {
+    public CompraService(CompraRepository repository, ChatRepository chatRepository, PublicacionRepository publicacionRepository, UsuarioRepository usuarioRepository) {
         this.repository = repository;
         this.chatRepository = chatRepository;
         this.publicacionRepository = publicacionRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     public Compra create(int idComprador, CompraDTO dto) {
@@ -58,6 +61,10 @@ public class CompraService {
     }
 
     public List<CompraDTO> getComprasByUsuario(int idComprador) {
+        if (!usuarioRepository.existsById(idComprador)) {
+            throw new RuntimeException("El usuario no existe");
+        }
+
         // Trae todas las compras del usuario
         List<Compra> compras = repository.findByIdComprador(idComprador);
 

@@ -8,14 +8,16 @@ import ar.com.colevueltas.site.model.Usuario;
 import ar.com.colevueltas.site.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 /*import org.springframework.security.crypto.password.PasswordEncoder;*/
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
 public class UsuarioService {
+
     @Autowired
-    /*private PasswordEncoder passwordEncoder;*/
+    private PasswordEncoder passwordEncoder;
 
     private final UsuarioRepository repository;
     private final NivelRepository nivelRepository;
@@ -38,7 +40,7 @@ public class UsuarioService {
         usuario.setNombre(dto.getNombre());
         usuario.setApellido(dto.getApellido());
         usuario.setMail(dto.getMail());
-        usuario.setContrasenia(dto.getContrasenia());
+        usuario.setContrasenia(passwordEncoder.encode(dto.getContrasenia()));
         usuario.setDni(dto.getDni());
 
         usuario.setFecha_registro(LocalDateTime.now());
@@ -60,11 +62,17 @@ public class UsuarioService {
     }
 
     public NivelDTO obtenerNivel(int id){
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("El usuario no existe");
+        }
         Usuario user = repository.findById(id);
         return new NivelDTO(id, user.getXp(), user.getNivel(), nivelRepository.findByNivel(user.getNivel()).getNombreNivel());
     }
 
     public ReputacionVendedorDTO obtenerReputacionVendedor(int id){
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("El usuario no existe");
+        }
         Usuario user = repository.findById(id);
         return new ReputacionVendedorDTO(id, user.getCalificacion_vendedor_promedio(), user.getTotal_calificaciones_vendedor());
     }
