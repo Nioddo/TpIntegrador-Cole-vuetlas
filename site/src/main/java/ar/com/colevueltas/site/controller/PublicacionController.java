@@ -26,4 +26,9 @@ public class PublicacionController {
     public List<PublicacionBuscarDTO> buscarPublicaciones(@RequestBody FiltrosDTO dto){
         return null;
     }
+
+    @GetMapping("/destacados")
+    public List<PublicacionBuscarDTO> publicacionesDestacadas(){
+        return service.getPublicacionesRecientes();
+    }
 }

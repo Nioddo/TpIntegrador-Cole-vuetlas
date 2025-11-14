@@ -80,6 +80,22 @@ public class PublicacionService {
         }).toList();
     }
 
+    public List<PublicacionBuscarDTO> getPublicacionesRecientes() {
+
+
+        List<Publicacion> publicaciones = repository.findAll();
+
+        return publicaciones.stream().map(pub -> {
+            PublicacionBuscarDTO dto = new PublicacionBuscarDTO();
+            dto.setId(pub.getId());
+            dto.setTitulo(pub.getTitulo());
+            dto.setPrecio(pub.getPrecio());
+            dto.setDescuento(pub.getDescuento());
+            dto.setImagenes(imagenRepository.findUrlImagenByPublicacionId(pub.getId()));
+            return dto;
+        }).toList();
+    }
+
     public Publicacion create(int id_usuario_vendedor, PublicacionCrearDTO dto) throws Exception {
         Publicacion publicacion = new Publicacion();
         if (dto.getPrecio().compareTo(BigDecimal.ZERO) < 0) {
