@@ -106,6 +106,22 @@ public class UsuarioService {
         return perfil;
     }
 
+    public UsuarioPublicacionDTO infoPubUsuario(int id){
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("El usuario no existe");
+        }
+        Usuario user = repository.findById(id);
+        UsuarioPublicacionDTO perfil = new UsuarioPublicacionDTO();
+
+        perfil.setId(user.getId());
+        perfil.setUsername(user.getUsername());
+        perfil.setCalificacionVendedor(user.getCalificacion_vendedor_promedio());
+        perfil.setEnvio(user.getEnvio());
+        perfil.setDireccion(user.getDireccion());
+
+        return perfil;
+    }
+
     public NivelDTO obtenerNivel(int id){
         if (!repository.existsById(id)) {
             throw new RuntimeException("El usuario no existe");

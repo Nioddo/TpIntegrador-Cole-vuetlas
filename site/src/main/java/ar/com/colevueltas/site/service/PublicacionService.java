@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,8 +32,9 @@ public class PublicacionService {
     private final PublicacionCursoRepository publicacionCursoRepository;
     private final ColegioRepository colegioRepository;
     private final CursoRepository cursoRepository;
+    private final PublicacionPreguntaRepository publicacionPreguntaRepository;
 
-    public PublicacionService(PublicacionRepository repository, ImagenPublicacionRepository imagenRepository, UsuarioRepository usuarioRepository, CategoriaRepository categoriaRepository, Cloudinary cloudinary, PublicacionColegioRepository publicacionColegioRepository, PublicacionCursoRepository publicacionCursoRepository, ColegioRepository colegioRepository, CursoRepository cursoRepository) {
+    public PublicacionService(PublicacionRepository repository, ImagenPublicacionRepository imagenRepository, UsuarioRepository usuarioRepository, CategoriaRepository categoriaRepository, Cloudinary cloudinary, PublicacionColegioRepository publicacionColegioRepository, PublicacionCursoRepository publicacionCursoRepository, ColegioRepository colegioRepository, CursoRepository cursoRepository, PublicacionPreguntaRepository publicacionPreguntaRepository) {
         this.repository = repository;
         this.imagenRepository = imagenRepository;
         this.usuarioRepository = usuarioRepository;
@@ -42,6 +44,7 @@ public class PublicacionService {
         this.publicacionCursoRepository = publicacionCursoRepository;
         this.colegioRepository = colegioRepository;
         this.cursoRepository = cursoRepository;
+        this.publicacionPreguntaRepository = publicacionPreguntaRepository;
     }
 
     public void delete(int id) {
@@ -177,6 +180,48 @@ public class PublicacionService {
             }
         }
         return null;
+    }
+
+    public PublicacionVerDTO getPublicacion(int id){
+        if (!repository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Publicación no encontrada");
+        }
+
+        Publicacion pub = repository.getReferenceById(id);
+        PublicacionVerDTO dto = new PublicacionVerDTO();
+        dto.setId(pub.getId());
+        dto.setId_usuario_vendedor(pub.getIdUsuarioVendedor());
+        dto.setTitulo(pub.getTitulo());
+        dto.setDescripcion(pub.getDescripcion());
+        dto.setPrecio(pub.getPrecio());
+        dto.setCondicion(pub.getCondicion());
+        dto.setFecha_publicacion(pub.getFechaPublicacion());
+        dto.setEstado(pub.getEstado());
+        dto.setDescuento(pub.getDescuento());
+        dto.setDescuento_fecha_inicio(pub.getDescuentoFechaInicio());
+        dto.setDescuento_fecha_fin(pub.getDescuentoFechaFin());
+        dto.setId_categoria(pub.getIdCategoria());
+        dto.setNomCategoria(categoriaRepository.getReferenceById(pub.getIdCategoria()).getNombre());
+
+        List<PublicacionPreguntaDTO> preguntas = new ArrayList<>();
+
+        for(PublicacionPregunta p : publicacionPreguntaRepository.findByPublicacionId(id)){
+            PublicacionPreguntaDTO dtoP = new PublicacionPreguntaDTO();
+            dtoP.setId(p.getId());
+            dtoP.setPregunta(p.getPregunta());
+            dtoP.setFechaPregunta(
+                    p.getFechaPregunta() != null ? p.getFechaPregunta().toString() : null
+            );
+            dtoP.setRespuesta(p.getRespuesta());
+            dtoP.setFechaRespuesta(
+                    p.getFechaRespuesta() != null ? p.getFechaRespuesta().toString() : null
+            );
+            preguntas.add(dtoP);
+        }
+
+        dto.setPreguntas(preguntas);
+
+        return dto;
     }
 
 }

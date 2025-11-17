@@ -1,9 +1,6 @@
 package ar.com.colevueltas.site.controller;
 
-import ar.com.colevueltas.site.dto.NivelDTO;
-import ar.com.colevueltas.site.dto.ReputacionVendedorDTO;
-import ar.com.colevueltas.site.dto.UsuarioCrearDTO;
-import ar.com.colevueltas.site.dto.UsuarioPerfilDTO;
+import ar.com.colevueltas.site.dto.*;
 import ar.com.colevueltas.site.model.Usuario;
 import ar.com.colevueltas.site.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -33,6 +30,10 @@ public class UsuariosController {
     @GetMapping("/{id}")
     public UsuarioPerfilDTO perfilUsuario(@PathVariable("id") int id){
         return usuarioService.infoPerfilUsuario(id);
+    }
+    @GetMapping("/pub/{id}")
+    public UsuarioPublicacionDTO perfilUsuarioPub(@PathVariable("id") int id){
+        return usuarioService.infoPubUsuario(id);
     }
 
     @GetMapping("/{id}/nivel")

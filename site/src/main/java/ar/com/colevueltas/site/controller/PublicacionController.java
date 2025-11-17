@@ -2,12 +2,11 @@ package ar.com.colevueltas.site.controller;
 
 import ar.com.colevueltas.site.dto.FiltrosDTO;
 import ar.com.colevueltas.site.dto.PublicacionBuscarDTO;
+import ar.com.colevueltas.site.dto.PublicacionDTO;
+import ar.com.colevueltas.site.dto.PublicacionVerDTO;
 import ar.com.colevueltas.site.service.PublicacionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +29,10 @@ public class PublicacionController {
     @GetMapping("/destacados")
     public List<PublicacionBuscarDTO> publicacionesDestacadas(){
         return service.getPublicacionesRecientes();
+    }
+
+    @GetMapping("/{id}")
+    public PublicacionVerDTO verPublicacion(@PathVariable("id") int id){
+        return service.getPublicacion(id);
     }
 }

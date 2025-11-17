@@ -20,7 +20,6 @@ public class PublicacionDTO {
     private LocalDateTime descuento_fecha_fin;
     private int id_categoria;
 
-    // --- Constructores ---
     public PublicacionDTO() {}
 
     public PublicacionDTO(int id, int id_usuario_vendedor, String titulo, String descripcion, BigDecimal precio,
@@ -41,7 +40,6 @@ public class PublicacionDTO {
         this.id_categoria = id_categoria;
     }
 
-    // --- Getters y Setters ---
     public int getId() {
         return id;
     }

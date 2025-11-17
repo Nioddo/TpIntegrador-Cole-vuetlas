@@ -201,30 +201,24 @@
 
                 console.log(data);
 
-                // Avatar
                 document.getElementById("perfil-avatar").textContent =
                     data.username.slice(0, 2).toUpperCase();
 
-                // Username
                 document.getElementById("perfil-username").textContent = data.username;
 
-                // Descripción
                 document.getElementById("perfil-descripcion").textContent = data.biografia;
 
-                // Envío
                 document.getElementById("perfil-envio").textContent = data.envio;
 
-                // Dirección → iframe
                 const direccionEncoded = encodeURIComponent(data.direccion);
                 document.getElementById("perfil-mapa").src =
                     `https://www.google.com/maps?q=${direccionEncoded}&output=embed`;
 
-                // Rating
+                
                 const rating = Math.round(data.calificacionVendedor);
                 document.getElementById("perfil-rating").textContent =
                     "★".repeat(rating) + "☆".repeat(5 - rating);
                 
-                // Publicaciones
                 const publicacionesContainer = document.getElementById("publicaciones-container");
                 data.publicaciones.forEach(pub => {
                     publicacionesContainer.innerHTML += `

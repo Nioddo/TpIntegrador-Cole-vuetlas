@@ -48,7 +48,6 @@ public class Publicacion {
     @Column(name = "fecha_eliminacion")
     private LocalDateTime fechaEliminacion;
 
-    // --- Constructores ---
     public Publicacion() {
         this.estado = EstadoPublicacion.Activo;
         this.descuento = BigDecimal.ZERO;
@@ -73,7 +72,6 @@ public class Publicacion {
         this.fechaEliminacion = fechaEliminacion;
     }
 
-    // --- Getters y Setters ---
     public int getId() {
         return id;
     }
