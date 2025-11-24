@@ -17,6 +17,7 @@ public class Publicacion {
 
     private String titulo;
 
+    @Column(columnDefinition = "TEXT")
     private String descripcion;
 
     private BigDecimal precio;

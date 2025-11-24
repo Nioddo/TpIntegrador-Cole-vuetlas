@@ -18,10 +18,6 @@ public class Colegio {
 
     private String logo;
 
-    // Relación bidireccional (opcional)
-    @OneToMany(mappedBy = "colegio", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Curso> cursos;
-
     public Colegio() {}
 
     public Colegio(String nombre, String direccion, String logo) {
@@ -60,13 +56,5 @@ public class Colegio {
 
     public void setLogo(String logo) {
         this.logo = logo;
-    }
-
-    public List<Curso> getCursos() {
-        return cursos;
-    }
-
-    public void setCursos(List<Curso> cursos) {
-        this.cursos = cursos;
     }
 }

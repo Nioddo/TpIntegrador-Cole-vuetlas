@@ -28,23 +28,19 @@ public class PublicacionService {
     private final UsuarioRepository usuarioRepository;
     private final CategoriaRepository categoriaRepository;
     private final Cloudinary cloudinary;
-    private final PublicacionColegioRepository publicacionColegioRepository;
-    private final PublicacionCursoRepository publicacionCursoRepository;
-    private final ColegioRepository colegioRepository;
-    private final CursoRepository cursoRepository;
     private final PublicacionPreguntaRepository publicacionPreguntaRepository;
+    private final PublicacionUniformeRepository publicacionUniformeRepository;
+    private final TalleRepository talleRepository;
 
-    public PublicacionService(PublicacionRepository repository, ImagenPublicacionRepository imagenRepository, UsuarioRepository usuarioRepository, CategoriaRepository categoriaRepository, Cloudinary cloudinary, PublicacionColegioRepository publicacionColegioRepository, PublicacionCursoRepository publicacionCursoRepository, ColegioRepository colegioRepository, CursoRepository cursoRepository, PublicacionPreguntaRepository publicacionPreguntaRepository) {
+    public PublicacionService(PublicacionRepository repository, ImagenPublicacionRepository imagenRepository, UsuarioRepository usuarioRepository, CategoriaRepository categoriaRepository, Cloudinary cloudinary, PublicacionPreguntaRepository publicacionPreguntaRepository, PublicacionUniformeRepository publicacionUniformeRepository, TalleRepository talleRepository) {
         this.repository = repository;
         this.imagenRepository = imagenRepository;
         this.usuarioRepository = usuarioRepository;
         this.categoriaRepository = categoriaRepository;
         this.cloudinary = cloudinary;
-        this.publicacionColegioRepository = publicacionColegioRepository;
-        this.publicacionCursoRepository = publicacionCursoRepository;
-        this.colegioRepository = colegioRepository;
-        this.cursoRepository = cursoRepository;
         this.publicacionPreguntaRepository = publicacionPreguntaRepository;
+        this.publicacionUniformeRepository = publicacionUniformeRepository;
+        this.talleRepository = talleRepository;
     }
 
     public void delete(int id) {
@@ -123,6 +119,7 @@ public class PublicacionService {
         publicacion.setDescuentoFechaInicio(null);
         publicacion.setDescuentoFechaFin(null);
         publicacion.setFechaEliminacion(null);
+
         publicacion = repository.save(publicacion);
 
         List<MultipartFile> imagenes = dto.getImagenes();
@@ -144,20 +141,13 @@ public class PublicacionService {
             }
         }
 
-        if (dto.getIdsColegios() != null && !dto.getIdsColegios().isEmpty()) {
-            List<Colegio> colegios = colegioRepository.findAllById(dto.getIdsColegios());
-            for (Colegio colegio : colegios) {
-                PublicacionColegio pc = new PublicacionColegio(publicacion, colegio);
-                publicacionColegioRepository.save(pc);
-            }
-        }
-
-        if (dto.getIdsCursos() != null && !dto.getIdsCursos().isEmpty()) {
-            List<Curso> cursos = cursoRepository.findAllById(dto.getIdsCursos());
-            for (Curso curso : cursos) {
-                PublicacionCurso pc = new PublicacionCurso(publicacion, curso);
-                publicacionCursoRepository.save(pc);
-            }
+        if (dto.getTipoPublicacion()==Tipo.Uniforme){
+            PublicacionUniforme uni = new PublicacionUniforme();
+            uni.setIdPublicacion(publicacion.getId());
+            if (!talleRepository.existsById(dto.getIdTalle())) throw new BadRequestException("El usuario no existe");
+            uni.setTalle(talleRepository.getReferenceById(dto.getIdTalle()));
+            publicacionUniformeRepository.save(uni);
+            uni.setIdColegio(dto.getIdColegio());
         }
 
         return publicacion;

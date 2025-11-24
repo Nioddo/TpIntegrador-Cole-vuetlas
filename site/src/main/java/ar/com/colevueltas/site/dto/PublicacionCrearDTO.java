@@ -1,6 +1,7 @@
 package ar.com.colevueltas.site.dto;
 
 import ar.com.colevueltas.site.model.Condicion;
+import ar.com.colevueltas.site.model.Tipo;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -26,29 +27,29 @@ public class PublicacionCrearDTO {
     @NotNull(message = "Elegir una categoría")
     private Integer idCategoria;
 
-
     @NotNull(message = "Debe agregar al menos una imagen")
     private List<MultipartFile> imagenes;
 
-    @NotNull(message = "Debe seleccionar al menos un curso")
-    private List<Integer> idsCursos;
+    private Integer idColegio;
 
-    @NotNull(message = "Debe seleccionar al menos un colegio")
-    private List<Integer> idsColegios;
+    @NotNull(message = "Debe ser objeto o publicacion")
+    private Tipo tipoPublicacion;
 
+    private Integer idTalle;
 
     public PublicacionCrearDTO() {
     }
 
-    public PublicacionCrearDTO(String titulo, String descripcion, BigDecimal precio, Condicion condicion, Integer idCategoria, List<MultipartFile> imagenes, List<Integer> idsCursos, List<Integer> idsColegios) {
+    public PublicacionCrearDTO(String titulo, String descripcion, BigDecimal precio, Condicion condicion, Integer idCategoria, List<MultipartFile> imagenes, Integer idColegio, Tipo tipoPublicacion, Integer idTalle) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.precio = precio;
         this.condicion = condicion;
         this.idCategoria = idCategoria;
         this.imagenes = imagenes;
-        this.idsCursos = idsCursos;
-        this.idsColegios = idsColegios;
+        this.idColegio = idColegio;
+        this.tipoPublicacion = tipoPublicacion;
+        this.idTalle = idTalle;
     }
 
     public String getTitulo() {
@@ -99,19 +100,27 @@ public class PublicacionCrearDTO {
         this.imagenes = imagenes;
     }
 
-    public List<Integer> getIdsCursos() {
-        return idsCursos;
+    public Integer getIdColegio() {
+        return idColegio;
     }
 
-    public void setIdsCursos(List<Integer> idsCursos) {
-        this.idsCursos = idsCursos;
+    public void setIdColegio(Integer idColegio) {
+        this.idColegio = idColegio;
     }
 
-    public List<Integer> getIdsColegios() {
-        return idsColegios;
+    public Tipo getTipoPublicacion() {
+        return tipoPublicacion;
     }
 
-    public void setIdsColegios(List<Integer> idsColegios) {
-        this.idsColegios = idsColegios;
+    public void setTipoPublicacion(Tipo tipoPublicacion) {
+        this.tipoPublicacion = tipoPublicacion;
+    }
+
+    public Integer getIdTalle() {
+        return idTalle;
+    }
+
+    public void setIdTalle(Integer idTalle) {
+        this.idTalle = idTalle;
     }
 }

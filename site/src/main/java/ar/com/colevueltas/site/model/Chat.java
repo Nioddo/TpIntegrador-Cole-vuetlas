@@ -3,6 +3,8 @@
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
     @Entity
     @Table(name = "chats")
     public class Chat {
@@ -20,16 +22,29 @@ import jakarta.persistence.*;
         @Column(name = "id_usuario_vendedor", nullable = false)
         private int id_usuario_vendedor;
 
+        @Column(name = "estado", nullable = false)
+        private EstadoChat estado;
+
+        @Column(name = "fecha_creacion")
+        private LocalDateTime fecha_creacion;
+
+        @Column(name = "fecha_ultima_actividad")
+        private LocalDateTime fecha_ultima_actividad;
+
         @Column(name = "activo", nullable = false)
         private boolean activo = true;
 
         // 🔹 Constructores
         public Chat() {}
 
-        public Chat(int id_publicacion, int id_usuario_comprador, int id_usuario_vendedor, boolean activo) {
+        public Chat(int id, int id_publicacion, int id_usuario_comprador, int id_usuario_vendedor, EstadoChat estado, LocalDateTime fecha_creacion, LocalDateTime fecha_ultima_actividad, boolean activo) {
+            this.id = id;
             this.id_publicacion = id_publicacion;
             this.id_usuario_comprador = id_usuario_comprador;
             this.id_usuario_vendedor = id_usuario_vendedor;
+            this.estado = estado;
+            this.fecha_creacion = fecha_creacion;
+            this.fecha_ultima_actividad = fecha_ultima_actividad;
             this.activo = activo;
         }
 
@@ -72,6 +87,30 @@ import jakarta.persistence.*;
 
         public void setActivo(boolean activo) {
             this.activo = activo;
+        }
+
+        public EstadoChat getEstado() {
+            return estado;
+        }
+
+        public void setEstado(EstadoChat estado) {
+            this.estado = estado;
+        }
+
+        public LocalDateTime getFecha_creacion() {
+            return fecha_creacion;
+        }
+
+        public void setFecha_creacion(LocalDateTime fecha_creacion) {
+            this.fecha_creacion = fecha_creacion;
+        }
+
+        public LocalDateTime getFecha_ultima_actividad() {
+            return fecha_ultima_actividad;
+        }
+
+        public void setFecha_ultima_actividad(LocalDateTime fecha_ultima_actividad) {
+            this.fecha_ultima_actividad = fecha_ultima_actividad;
         }
     }
 

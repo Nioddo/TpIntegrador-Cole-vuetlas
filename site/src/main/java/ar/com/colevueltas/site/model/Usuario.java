@@ -39,6 +39,7 @@ public class Usuario {
     private int total_calificaciones_comprador;
     private LocalDateTime fecha_eliminacion;
 
+    private boolean es_admin;
     private String username;
     @Column(length = 2550)
     private String biografia;
@@ -48,7 +49,7 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(int id, String nombre, String apellido, String mail, String contrasenia, int dni, LocalDateTime fecha_registro, Genero genero, LocalDate fecha_nacimiento, String telefono, int xp, int nivel, boolean es_verificado, Double calificacion_vendedor_promedio, int total_calificaciones_vendedor, Double calificacion_comprador_promedio, int total_calificaciones_comprador, LocalDateTime fecha_eliminacion, String username, String biografia, String envio) {
+    public Usuario(int id, String nombre, String apellido, String mail, String contrasenia, int dni, LocalDateTime fecha_registro, Genero genero, LocalDate fecha_nacimiento, String telefono, int xp, int nivel, boolean es_verificado, Double calificacion_vendedor_promedio, int total_calificaciones_vendedor, Double calificacion_comprador_promedio, int total_calificaciones_comprador, LocalDateTime fecha_eliminacion, String username, String biografia, String envio, boolean es_admin) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -70,6 +71,7 @@ public class Usuario {
         this.username = username;
         this.biografia = biografia;
         this.envio = envio;
+        this.es_admin = es_admin;
     }
 
     public int getId() {
@@ -246,5 +248,13 @@ public class Usuario {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public boolean isEs_admin() {
+        return es_admin;
+    }
+
+    public void setEs_admin(boolean es_admin) {
+        this.es_admin = es_admin;
     }
 }
